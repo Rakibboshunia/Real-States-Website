@@ -1,0 +1,117 @@
+.property-card {
+  overflow: hidden;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.property-image-container {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.property-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.property-card:hover .property-image {
+  transform: scale(1.05);
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(4px);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dark);
+  transition: all var(--transition-fast);
+  z-index: 2;
+}
+
+.favorite-btn:hover {
+  color: #ef4444; /* red */
+  transform: scale(1.1);
+}
+
+.property-price {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.125rem;
+  z-index: 2;
+  box-shadow: var(--shadow-md);
+}
+
+.property-details {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.property-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.property-title a {
+  transition: color var(--transition-fast);
+}
+
+.property-title a:hover {
+  color: var(--secondary-color);
+}
+
+.property-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+}
+
+.property-features {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
+  margin-top: auto;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.full-width {
+  width: 100%;
+}
