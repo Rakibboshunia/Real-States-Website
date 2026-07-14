@@ -5,14 +5,6 @@ import PropertyCard from '../components/PropertyCard';
 import { MapPin, Bed, Bath, Square, Heart, Share2, Phone, Mail, CheckCircle, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { useFavorites } from '../context/FavoritesContext';
 
-// Extra gallery images per property
-const galleryImages = [
-  'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1560185127-6ed189bf02f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-];
-
 const PropertyDetails = () => {
   const { id } = useParams();
   const { isFavorite, toggleFavorite } = useFavorites();
@@ -32,7 +24,11 @@ const PropertyDetails = () => {
 
   const agent = agents.find(a => a.id === property.agentId);
   const isFav = isFavorite(property.id);
-  const allImages = [property.image, ...galleryImages];
+  
+  // Use property unique images, fallback to main image if array is empty/missing
+  const allImages = property.images && property.images.length > 0 
+    ? [property.image, ...property.images] 
+    : [property.image];
 
   const openLightbox = (idx) => { setLightboxIdx(idx); setLightboxOpen(true); };
   const closeLightbox = () => setLightboxOpen(false);
@@ -237,6 +233,34 @@ const PropertyDetails = () => {
                 <p className="text-emerald-400 font-semibold">Message sent! We'll get back to you shortly.</p>
               </div>
             )}
+          </div>
+
+          {/* ─── MORTGAGE CALCULATOR ─── */}
+          <div className="rounded-2xl p-7"
+            style={{ background: 'linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03))', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}>
+            <h3 className="font-display font-bold text-xl text-white mb-5 pb-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+              Mortgage Calculator
+            </h3>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-semibold text-slate-400">Total Price</label>
+                <input type="text" readOnly value={property.price} className="w-full px-4 py-3 rounded-xl text-white outline-none text-sm bg-white/5 border border-white/10" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-semibold text-slate-400">Down Payment (20%)</label>
+                <input type="text" readOnly value={`$${(property.numericPrice * 0.2).toLocaleString()}`} className="w-full px-4 py-3 rounded-xl text-white outline-none text-sm bg-white/5 border border-white/10" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-semibold text-slate-400">Interest Rate</label>
+                <input type="text" defaultValue="6.5%" className="w-full px-4 py-3 rounded-xl text-white outline-none text-sm bg-white/5 border border-white/10 transition-all focus:border-blue-500/60" />
+              </div>
+              <div className="mt-2 p-4 rounded-xl" style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)' }}>
+                <p className="text-slate-400 text-xs mb-1">Estimated Monthly Payment</p>
+                <p className="font-display font-bold text-2xl text-blue-400">
+                  ${Math.round((property.numericPrice * 0.8) * 0.0065).toLocaleString()}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -32,6 +32,8 @@ const Navbar = () => {
           <NavLink to="/properties" className={linkCls}>Properties</NavLink>
           <NavLink to="/search" className={linkCls}>Search</NavLink>
           <NavLink to="/agent/1" className={linkCls}>Agents</NavLink>
+          <NavLink to="/about" className={linkCls}>About</NavLink>
+          <NavLink to="/contact" className={linkCls}>Contact</NavLink>
           <NavLink to="/favorites" className={({ isActive }) =>
             `flex items-center gap-1.5 text-sm font-medium transition-colors duration-200 ${isActive ? 'text-blue-400' : 'text-white hover:text-blue-300'}`
           }>
@@ -53,7 +55,7 @@ const Navbar = () => {
       {/* Mobile menu */}
       {open && (
         <div className="md:hidden glass border-t border-white/10 px-6 py-5 flex flex-col gap-4">
-          {[['/', 'Home', true], ['/properties', 'Properties'], ['/search', 'Search'], ['/agent/1', 'Agents'], ['/favorites', 'Favorites']].map(([to, label, end]) => (
+          {[['/', 'Home', true], ['/properties', 'Properties'], ['/search', 'Search'], ['/agent/1', 'Agents'], ['/about', 'About'], ['/contact', 'Contact'], ['/favorites', 'Favorites']].map(([to, label, end]) => (
             <NavLink key={to} to={to} end={!!end}
               className={({ isActive }) => `font-medium text-sm ${isActive ? 'text-blue-400' : 'text-white'}`}
               onClick={() => setOpen(false)}

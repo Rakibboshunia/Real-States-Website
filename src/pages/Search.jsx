@@ -14,14 +14,16 @@ const Search = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const initialQuery = searchParams.get('q') || '';
+  const initialType = searchParams.get('type') || 'All Types';
+  const initialStatus = searchParams.get('status') || 'Any';
 
   const [searchTerm, setSearchTerm] = useState(initialQuery);
-  const [type, setType] = useState('All Types');
+  const [type, setType] = useState(initialType);
   const [price, setPrice] = useState('Any Price');
   const [beds, setBeds] = useState('Any');
   const [baths, setBaths] = useState('Any');
   const [minSqft, setMinSqft] = useState('Any');
-  const [status, setStatus] = useState('Any');
+  const [status, setStatus] = useState(initialStatus);
 
   const [results, setResults] = useState(properties);
 
@@ -175,7 +177,23 @@ const Search = () => {
           </div>
         ) : (
           <div className="rounded-2xl p-12 text-center" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
-            <p className="text-slate-500 text-lg">No properties match your criteria. Try adjusting your filters.</p>
+            <div className="text-5xl mb-4 opacity-50">🔍</div>
+            <h3 className="font-display font-bold text-2xl text-white mb-2">No properties found</h3>
+            <p className="text-slate-500 text-lg mb-6">We couldn't find any properties matching your current criteria.</p>
+            <button 
+              onClick={() => {
+                setSearchTerm('');
+                setType('All Types');
+                setPrice('Any Price');
+                setBeds('Any');
+                setBaths('Any');
+                setMinSqft('Any');
+                setStatus('Any');
+              }}
+              className="px-6 py-3 rounded-xl font-semibold text-white transition-all bg-white/5 hover:bg-white/10 border border-white/10"
+            >
+              Clear All Filters
+            </button>
           </div>
         )}
       </div>
